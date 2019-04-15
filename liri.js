@@ -40,14 +40,28 @@ switch (liriCommand) {
 }
 
 //bands in town function
+// Name of the venue
+// Venue location
+// Date of the Event (use moment to format this as "MM/DD/YYYY")
 function concertThis() {
     var artist = userRequest;
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            console.log(response.data[0].venue);
-            // for (let i = 0; i <= 3; i++) {
-            //     console.log(response.data[i]);
-            // }
+            // console.log(response.data[0].datetime);
+            // console.log(response.data[i].venue.name); //name of the venue
+            // console.log(response.data[i].venue.city + ", " + response.data[i].venue.country); //venue city, country
+            // console.log(response.data[0].datetime); //date of the venue
+            for (let i = 0; i <= response.data.length; i++) {
+                var bandResults =
+                    "Name of the Venue: " + response.data[i].venue.name + "\n" +
+                    "Venue Location: " + response.data[i].venue.city + response.data[i].venue.country + "\n" +
+                    "Date of the Event: " + moment(response.data[0].datetime).format("MM/DD/YYYY");
+
+                console.log("___________________________");
+                console.log(bandResults);
+                console.log("___________________________");
+                logData(bandResults);
+            }
         });
 }
 
@@ -104,6 +118,7 @@ function spotifyThisSong() {
                         console.log("___________________________");
                         console.log(spotifyResults);
                         console.log("___________________________");
+                        logData(spotifyResults);
                     };
                 };
             }
@@ -142,8 +157,9 @@ function movieThis() {
             console.log("______________________");
             console.log(queryUrlResults);
             console.log("______________________");
+            logData(queryUrlResults);
 
-        } 
+        }
         else {
             console.log(err);
         }
@@ -173,8 +189,23 @@ function DoIt() {
             userRequest = parameter;
             spotifyThisSong()
         }
-        else {
+        else if (option = "concert-this"){
             concertThis()
+        }
+        else{}
+        
+    });
+}
+
+function logData(info) {
+    fs.appendFile("log.txt", liriCommand + " " + userRequest + "\r\n" + info, function (err) {
+        if (err) {
+            console.log(err);
+        }
+
+        // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+        else {
+            console.log("Content Added!");
         }
     });
 }
