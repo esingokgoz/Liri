@@ -27,12 +27,12 @@ Getting Set-up:
 
 How to Run a Command & Command Results:
 1) Spotify
-Spotify command: node liri.js spotify-this-song '<song name here>'
-Spotify command will show the following information about the song in your terminal/bash window
-   - Artist(s)
-   - The song's name
-   - A preview link of the song from Spotify
-   - The album that the song is from
+  Spotify command: node liri.js spotify-this-song <song name here>
+  Spotify command will show the following information about the song in your terminal/bash window
+    - Artist(s)
+    - The song's name
+    - A preview link of the song from Spotify
+    - The album that the song is from
    
   ** If no song title is entered, then default will display ("The Sign", by Ace of Base)
   
@@ -44,7 +44,7 @@ Spotify command will show the following information about the song in your termi
     - Date of the Event
     
 3) OMBD
-  OMBD Command: node liri.js movie-this '<movie name here>'
+  OMBD Command: node liri.js movie-this <movie name here>
   OMBD command will show the following information about the movie in your in your bash/terminal
    - Title of the movie.
    - Year the movie came out.
