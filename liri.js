@@ -19,7 +19,7 @@ var moment = require("moment");
 var liriCommand = process.argv[2]
 
 //user request is the process.argv 3 that is entered by the user. song name, movie name, band name etc
-var userRequest = process.argv.splice(3, process.argv.length + 1).toString().replace(/,/g / '');
+var userRequest = process.argv.splice(3, process.argv.length + 1).join(" ");
 
 
 
@@ -38,7 +38,7 @@ switch (liriCommand) {
         DoIt();
         break;
 }
-
+var bandResults = "";
 //bands in town function
 // Name of the venue
 // Venue location
@@ -51,17 +51,18 @@ function concertThis() {
             // console.log(response.data[i].venue.name); //name of the venue
             // console.log(response.data[i].venue.city + ", " + response.data[i].venue.country); //venue city, country
             // console.log(response.data[0].datetime); //date of the venue
-            for (let i = 0; i <= response.data.length; i++) {
-                var bandResults =
+            for (let i = 0; i < response.data.length; i++) {
+                bandResults =
                     "Name of the Venue: " + response.data[i].venue.name + "\n" +
-                    "Venue Location: " + response.data[i].venue.city + response.data[i].venue.country + "\n" +
+                    "Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country + "\n" +
                     "Date of the Event: " + moment(response.data[0].datetime).format("MM/DD/YYYY");
 
                 console.log("___________________________");
                 console.log(bandResults);
                 console.log("___________________________");
-                logData(bandResults);
+                
             }
+            logData(bandResults);
         });
 }
 
@@ -144,15 +145,15 @@ function movieThis() {
             var movieData = JSON.parse(body);
 
             //get object data
-            var queryUrlResults =
-                "Title: " + movieData.Title + "\n" +
-                "Year: " + movieData.Year + "\n" +
-                "IMDB Rating: " + movieData.Ratings[0].Value + "\n" +
-                "Rotten Tomatoes Rating: " + movieData.Ratings[1].Value + "\n" +
-                "Country: " + movieData.Country + "\n" +
-                "Language: " + movieData.Language + "\n" +
-                "Plot: " + movieData.Plot + "\n" +
-                "Actors: " + movieData.Actors;
+            var queryUrlResults = [
+                "Title: " + movieData.Title,
+                "Year: " + movieData.Year,
+                "IMDB Rating: " + movieData.Ratings[0].Value,
+                "Rotten Tomatoes Rating: " + movieData.Ratings[1].Value,
+                "Country: " + movieData.Country,
+                "Language: " + movieData.Language,
+                "Plot: " + movieData.Plot,
+                "Actors: " + movieData.Actors].join("\n\n")
 
             console.log("______________________");
             console.log(queryUrlResults);
